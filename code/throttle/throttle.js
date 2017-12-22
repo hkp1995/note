@@ -3,19 +3,18 @@ const newStr = document.querySelector('.newStr');
 const count = document.querySelector('.count');
 
 // 1.首部执行
-// oldStr.addEventListener('input', throttle(toUpper, 500, { leading: true, trailing: false }));
-// 2.首部执行（默认）
-// oldStr.addEventListener('input', throttle(toUpper, 500));
-// 3.首尾部都执行
-oldStr.addEventListener('input', throttle(toUpper, 500, { leading: true }));
-// oldStr.addEventListener('input', throttle(toUpper, 500, { leading: true, trailing: true }));
+// oldStr.addEventListener('input', throttle(toUpper, 500, { trailing: false }));
+// 2.尾部执行
+// oldStr.addEventListener('input', throttle(toUpper, 500, { leading: false }));
+// 3.首尾部都执行（默认）
+oldStr.addEventListener('input', throttle(toUpper, 500));
 
 function toUpper() {
   count.innerHTML = +count.innerHTML + 1;
   newStr.innerHTML = oldStr.value.toUpperCase();
 }
 
-function throttle(func, wait, { leading = false, trailing = true } = {}) {
+function throttle(func, wait, { leading = true, trailing = true } = {}) {
   let startTime = 0;
   let timer = null;
 
@@ -53,3 +52,21 @@ function throttle(func, wait, { leading = false, trailing = true } = {}) {
 
   return throttled;
 }
+
+
+// let ticking = false; // rAF 触发锁
+
+// function onInput(){
+//   if(!ticking) {
+//     requestAnimationFrame(toUpper);
+//     ticking = true;
+//   }
+// }
+
+// function toUpper(){
+//     count.innerHTML = +count.innerHTML + 1;
+//     newStr.innerHTML = oldStr.value.toUpperCase();
+//     ticking = false;
+// }
+
+// oldStr.addEventListener('input', onInput, false);
